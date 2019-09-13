@@ -18,6 +18,7 @@ public class Debug {
             }
         }
 
+        System.out.println("There are " + ans + " " + c);
         return ans;
     }
 }

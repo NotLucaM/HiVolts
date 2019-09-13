@@ -79,7 +79,6 @@ public class Controller {
 
     public void turn() {
         char move;
-
     }
 
     public void draw() {
@@ -98,9 +97,7 @@ public class Controller {
             System.out.println();
         }
 
-        System.out.println("Mhos left " + mhosLeft);
+        System.out.println("Enemies left " + mhosLeft);
 
     }
-
-
 }
