@@ -1,4 +1,4 @@
-package src;
+package higame;
 
 public class Coord {
     int x; // col
