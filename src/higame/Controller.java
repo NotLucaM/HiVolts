@@ -1,7 +1,11 @@
 package higame;
 
+import java.util.Scanner;
+
 public class Controller {
     char[][] board = new char[12][12]; // c = player, f = fence, e = Mho, v = empty
+    Player player = new Player();
+    Mhos mhos = new Mhos();
 
     Coord playerLoc = new Coord(0, 0);
 
@@ -64,12 +68,7 @@ public class Controller {
         }
 
         print();
-
-        Debug debugger = new Debug();
-        debugger.setBoard(board);
-        System.out.println(debugger.count('f'));
-        System.out.println(debugger.count('e'));
-        System.out.println(debugger.count('c'));
+        turn();
     }
 
     private int random(int start, int end) {
@@ -78,7 +77,11 @@ public class Controller {
     }
 
     public void turn() {
-        char move;
+        Scanner in = new Scanner(System.in);
+        board = player.move(board, in.next().charAt(0));
+        board = mhos.move(board);
+
+        print();
     }
 
     public void draw() {

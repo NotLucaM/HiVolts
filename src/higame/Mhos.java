@@ -2,9 +2,7 @@ package higame;
 
 public class Mhos {
 //c = player, f = fence, e = mho, v = vacant
-    char[][] board;
-
-    char[][] move() {
+    char[][] move(char[][] board) {
         int playerRow = -1;
         int playerColumn = -1;
 

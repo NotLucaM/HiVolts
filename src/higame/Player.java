@@ -1,66 +1,79 @@
 package higame;
 
 public class Player {
+    boolean isAlive = true;
 
-
-    void move(char[][] board, char move) {
+    char[][] move(char[][] board, char move) {
         int playerRow = -1;
         int playerColumn = -1;
 
         for (int i = 0; i <= 10; i++) { // finding out where the player is
             for (int j = 0; j <= 10; j++) {
                 if (board[i][j] == 'c') {
-                    playerRow = i;
-                    playerColumn = j;
+                    playerRow = j;
+                    playerColumn = i;
                 }
             }
         }
 
-        if (move == 'Q') {
-            int new_i = i - 1;
-            int new_j = j - 1;
+        int newI = 1;
+        int newJ = 1;
+
+        if (move == 'q') {
+            newI = playerColumn - 1;
+            newJ = playerRow - 1;
         }
-        if (move == 'W') {
-            int new_i = i - 1;
-            int new_j = j;
+        if (move == 'w') {
+            newI = playerColumn - 1;
+            newJ = playerRow;
 
         }
-        if (move == 'E') {
-            int new_i = i - 1;
-            int new_j = j + 1;
+        if (move == 'e') {
+            newI = playerColumn - 1;
+            newJ = playerRow + 1;
 
         }
-        if (move == 'A') {
-            int new_i = i;
-            int new_j = j - 1;
+        if (move == 'a') {
+            newI = playerColumn;
+            newJ = playerRow - 1;
         }
-        if (move == 'S') {
-            int new_i = i;
-            int new_j = j;
+        if (move == 's') {
+            newI = playerColumn;
+            newJ = playerRow;
         }
-        if (move == 'D') {
-            int new_i = i;
-            int new_j = j + 1;
+        if (move == 'd') {
+            newI = playerColumn;
+            newJ = playerRow + 1;
         }
-        if (move == 'Z') {
-            int new_i = i + 1;
-            int new_j = j - 1;
+        if (move == 'z') {
+            newI = playerColumn + 1;
+            newJ = playerRow - 1;
         }
-        if (move == 'X') {
-            int new_i = i-1;
-            int new_j = j;
+        if (move == 'x') {
+            newI = playerColumn-1;
+            newJ = playerRow;
         }
-        if (move == 'C') {
-            int new_i = i+1;
-            int new_j = j + 1;
+        if (move == 'c') {
+            newI = playerColumn+1;
+            newJ = playerRow + 1;
         }
-        if (move == 'J') {
-            int new_i = random(1, 10);
-            int new_j = random(1, 10);
+        if (move == 'j') {
+            newI = random(1, 10);
+            newJ = random(1, 10);
         }
+
+        if (board[newI][newJ] != 'v') {
+            isAlive = false;
+            board[playerColumn][playerRow] = 'v';
+        } else {
+            board[playerColumn][playerRow] = 'v';
+            board[newI][newJ] = 'c';
+        }
+
+        return board;
     }
     
-    void random(int x, int y) {
+    int random(int end, int start) {
     	int diff = end - start + 1;
         return ((int) Math.floor(Math.random() * diff)) + start;
     }
