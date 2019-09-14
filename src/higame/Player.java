@@ -59,5 +59,10 @@ public class Player {
             int new_j = random(1, 10);
         }
     }
+    
+    void random(int x, int y) {
+    	int diff = end - start + 1;
+        return ((int) Math.floor(Math.random() * diff)) + start;
+    }
 
 }
