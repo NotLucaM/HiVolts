@@ -62,24 +62,24 @@ public class Mhos {
                     //if vertical distance greater than horizontal distance
                     if (Math.abs(playerRow - i) > Math.abs(playerColumn - j)) {
                         if (playerRow > i) {
-                            int new_i = i+1;
-                            int new_j = j;
+                            int newI = i+1;
+                            int newJ = j;
                         }
                         else {
-                            int new_i = i-1;
-                            int new_j = j;
+                            int newI = i-1;
+                            int newJ = j;
                         }
                     }
 
                     // if horizontal distance greater than vertical distance
                     else { 
                         if (playerColumn > j) {
-                            int new_i = i;
-                            int new_j = j+1;
+                            int newI = i;
+                            int newJ = j+1;
                         }
                         else {
-                            int new_i = i;
-                            int new_j = j-1;
+                            int newI = i;
+                            int newJ = j-1;
                         }
 
                     }
