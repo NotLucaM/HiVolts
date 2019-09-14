@@ -55,6 +55,8 @@ public class Player {
             int new_j = j + 1;
         }
         if (move == 'J') {
+            int new_i = rand.nextInt(12);
+            int new_j = rand.nextInt(12);
             //idk how to do random in java. help
         }
     }
