@@ -4,7 +4,7 @@ public class Mhos {
 //c = player, f = fence, e = mho, v = vacant
     char[][] board;
 
-    void move() {
+    char[][] move() {
         int playerRow = -1;
         int playerColumn = -1;
 
@@ -94,6 +94,7 @@ public class Mhos {
                 }
             }
         }
+        return board;
     }
 }
 
