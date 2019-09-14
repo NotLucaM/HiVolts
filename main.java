@@ -6,7 +6,7 @@ class mHos {
     void move() {
         for (int i=0;i<=10;i++){ // finding out where the player is
             for (int j=0;j<=10;j++) {
-                if (board[i][j].equals("c"){
+                if (board[i][j].equals("c")) {
                     int playerrow = i;
                     int playercolumn = j;
                 }
