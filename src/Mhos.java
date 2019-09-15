@@ -30,7 +30,7 @@ public class Mhos {
                     } else if (playerRow == i && playerColumn < j) {
                     	// mho is directly to the left of the player. (move right.)
                         newI = i;
-                        newJ = j - 1;
+                        newJ = j + 1;
                     } else if (playerRow == i && playerColumn > j) {
                     	// mho is directly to the right of the player. (move left.)
                         newI = i;
