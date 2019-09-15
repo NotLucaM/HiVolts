@@ -53,7 +53,7 @@ public class Mhos {
                     	// mho is to the right and above the player. (move left and down.)
                         newI = i - 1;
                         newJ = j - 1;
-                    } else if (Math.abs(playerRow - i) > Math.abs(playerColumn - j)) {
+                    }else if ((Math.abs(playerRow - i) > Math.abs(playerColumn - j)) {
                     	// vertical distance > horizontal distance.
                         if (playerRow > i) {
                         	// mho is below the player. (move up.)
