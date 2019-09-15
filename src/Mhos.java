@@ -1,11 +1,12 @@
+package higame;
+
 public class Mhos {
-    //c = player, f = fence, e = mho, v = vacant
-    char[][] move(char[][] board, int enemiesLeft) {
+//c = player, f = fence, e = mho, v = vacant
+    char[][] move(char[][] board) {
         int playerRow = -1;
         int playerColumn = -1;
 
-        //finding out where the player is
-        for (int i = 0; i <= 10; i++) {
+        for (int i = 0; i <= 10; i++) { // finding out where the player is
             for (int j = 0; j <= 10; j++) {
                 if (board[i][j] == 'c') {
                     playerRow = i;
@@ -13,92 +14,78 @@ public class Mhos {
                 }
             }
         }
-
-        // Locating enemies
-
-        int[][] enemies = new int[enemiesLeft][2];
-        int enemiesFound = 0;
-        for (int i = 0; i <= 10; i++) {
-            for (int j = 0; j <= 10; j++) {
+        
+        for (int i = 0; i <= 10; i++){
+            for (int j=0;j<=10;j++) {
                 if (board[i][j] == 'e') {
-                    enemies[enemiesFound][0] = i;
-                    enemies[enemiesFound][1] = j;
-                    enemiesFound++;
+                    int newI = 0;
+                    int newJ = 0;
+
+                    if (playerRow < i && playerColumn == j) {
+                    	// mho is directly above player. (move down.)
+                        newI = i - 1;
+                        newJ = j;
+                    } else if (playerRow > i && playerColumn == j) {
+                    	// mho is directly below player. (move up.)
+                        newI = i + 1;
+                        newJ = j;
+                    } else if (playerRow == i && playerColumn < j) {
+                    	// mho is directly to the left of the player. (move right.)
+                        newI = i;
+                        newJ = j - 1;
+                    } else if (playerRow == i && playerColumn > j) {
+                    	// mho is directly to the right of the player. (move left.)
+                        newI = i;
+                        newJ = j - 1;
+                    } else if (playerRow > i && playerColumn > j && playerRow - i == playerColumn - j) {
+                    	// mho is to the left and below the player. (move right and up.)
+                        newI = i + 1;
+                        newJ = j + 1;
+                    } else if (playerRow > i && playerColumn < j && playerRow - i == -(playerColumn - j)) {
+                    	// mho is to the right and below the player. (move left and up.)
+                        newI = i + 1;
+                        newJ = j - 1;
+                    } else if (playerRow < i && playerColumn > j && -(playerRow - i) == playerColumn - j) {
+                    	// mho is to the left and above the player. (move right and down.)
+                        newI = i - 1;
+                        newJ = j + 1;
+                    } else if (playerRow < i && playerColumn < j && -(playerRow - i) == -(playerColumn - j)) {
+                    	// mho is to the right and above the player. (move left and down.)
+                        newI = i - 1;
+                        newJ = j - 1;
+                    } else if (Math.abs(playerRow - i) > Math.abs(playerColumn - j)) {
+                    	// vertical distance > horizontal distance.
+                        if (playerRow > i) {
+                        	// mho is below the player. (move up.)
+                            int newI = i + 1;
+                            int newJ = j;
+                        }
+                        else {
+                        	// mho is below the player. (move down.)
+                            int newI = i-1;
+                            int newJ = j;
+                        }
+                    } else { 
+                    	// horizontal distance > vertical distance.
+                        if (playerColumn > j) {
+                        	// mho is to the left of the player. (move right.)
+                            int newI = i;
+                            int newJ = j+1;
+                        } else {
+                        	// mho is to the right of the player. (move left.)
+                            int newI = i;
+                            int newJ = j-1;
+                        }
+
+                    }
+
+                    if (board[newI][newJ] != 'f') {
+                        board[newI][newJ] = 'e';
+                    }
+
+                    board[i][j] = 'v';
                 }
             }
-        }
-
-        for (int i = 0; i < enemiesFound; i++) {
-            int newI = 0;
-            int newJ = 0;
-
-            //if player is directly above or below enemy
-            if (playerRow - 1 == enemies[i][0] && playerColumn == enemies[i][1]) {
-                newI = enemies[i][0] - 1;
-                newJ = enemies[i][1];
-            }
-            if (playerRow + 1 == enemies[i][0] && playerColumn == enemies[i][1]) {
-                newI = enemies[i][0] + 1;
-                newJ = enemies[i][1];
-            }
-
-            //if player is directly left or right of enemy
-            if (playerRow == enemies[i][0] && playerColumn - 1 == enemies[i][1]) {
-                newJ = enemies[i][0];
-                newJ = enemies[i][1] - 1;
-            }
-            if (playerRow == enemies[i][0] && playerColumn + 1 == enemies[i][1]) {
-                newJ = enemies[i][0];
-                newJ = enemies[i][1] + 1;
-            }
-
-            //if player is diagonal to enemy
-            if (playerRow - enemies[i][0] == enemies[i][0] && playerColumn - 1 == enemies[i][1]) {
-                newJ = enemies[i][0] - 1;
-                newJ = enemies[i][1] - 1;
-            }
-            if (playerRow - enemies[i][0] == enemies[i][0]&& playerColumn + 1 == enemies[i][1]) {
-                newJ = enemies[i][0] - 1;
-                newJ = enemies[i][1] + 1;
-            }
-            if (playerRow + enemies[i][0] == enemies[i][0] && playerColumn - 1 == enemies[i][1]) {
-                newJ = enemies[i][0] + 1;
-                newJ = enemies[i][1] - 1;
-            }
-            if (playerRow + enemies[i][0] == enemies[i][0] && playerColumn + 1 == enemies[i][1]) {
-                newJ = enemies[i][0] + 1;
-                newJ = enemies[i][1] + 1;
-            }
-
-            //if vertical distance greater than horizontal distance
-            if (Math.abs(playerRow - enemies[i][0]) > Math.abs(playerColumn - enemies[i][1])) {
-                if (playerRow > enemies[i][0]) {
-                    newI = enemies[i][0] + 1;
-                    newJ = enemies[i][1];
-                } else {
-                    newI = enemies[i][0] - 1;
-                    newJ = enemies[i][1];
-                }
-            }
-
-            // if horizontal distance greater than vertical distance
-            else {
-                if (playerColumn > enemies[i][1]) {
-                    newI = i;
-                    newJ = enemies[i][1] + 1;
-                } else {
-                    newI = i;
-                    newJ = enemies[i][1] - 1;
-                }
-
-            }
-
-            if (board[newI][newJ] == 'v' || board[newI][newJ] == 'c') {
-                board[newI][newJ] = 'e';
-                board[enemies[i][0]][enemies[i][1]] = 'v';
-            }
-
-            board[enemies[i][0]][enemies[i][1]] = 'v';
         }
         return board;
     }
