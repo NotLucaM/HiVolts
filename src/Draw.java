@@ -37,8 +37,6 @@ public class Draw {
         frame.setSize(1220, 1000);
         frame.getContentPane().add(new Work(controller));
 
-        //frame.setBackground(Color.LIGHT_GRAY);
-
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(true);
     }
