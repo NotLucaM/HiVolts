@@ -7,12 +7,14 @@ public class Controller {
     Player player = new Player();
     Mhos mhos = new Mhos();
 
-    Coord playerLoc = new Coord(0, 0);
+    boolean swing; // true = use swing to draw the board, false = output the board in console
 
-    int moves = 0;
-    int mhosLeft = 12;
+    int moves = 0; // moves done
+    int mhosLeft = 12; // amount of mhos still in the game
 
-    Controller() {
+    Controller(boolean swing) {
+        this.swing = swing;
+
         for (int i = 0; i < 12; i++) {
             board[i][0] = 'f';
             board[i][11] = 'f';
@@ -20,7 +22,7 @@ public class Controller {
             board[11][i] = 'f';
         }
 
-        // fences
+        // fences placement
         int amountCreated = 0;
         while (amountCreated < 20) {
             int rand1 = random(1, 10);
@@ -33,7 +35,7 @@ public class Controller {
             }
         }
 
-        // Mhos
+        // Mhos placement
         amountCreated = 0;
         while (amountCreated < 12) {
             int rand1 = random(1, 10);
@@ -46,7 +48,7 @@ public class Controller {
             }
         }
 
-        // Character
+        // Character placement
         amountCreated = 0;
         while (amountCreated < 1) {
             int rand1 = random(1, 10);
@@ -59,6 +61,7 @@ public class Controller {
             }
         }
 
+        // Empty location placement
         for (int i = 1; i <= 10; i++) {
             for (int j = 1; j <= 10; j++) {
                 if (board[i][j] == '\u0000') {
@@ -66,29 +69,52 @@ public class Controller {
                 }
             }
         }
-
-        print();
-        turn();
     }
 
     private int random(int start, int end) {
+        // Generate a random number from start to end inclusive
         int diff = end - start + 1;
         return ((int) Math.floor(Math.random() * diff)) + start;
     }
 
     public void turn() {
-        Scanner in = new Scanner(System.in);
-        board = player.move(board, in.next().charAt(0));
-        board = mhos.move(board);
+        // Do one turn
+        if (swing) { // If the game is to be played in swing
 
-        print();
+        } else { // If the game is to be played through console
+            Scanner in = new Scanner(System.in);
+            board = player.move(board, in.next().charAt(0));
+        }
+
+        moves++;
+
+        if (board == null) {
+            return;
+        } // If the player is blind and walks into a wall on his own accord
+
+        board = mhos.move(board, mhosLeft); // Let the enemies move
     }
 
-    public void draw() {
+    public int countMhos() {
+        // Counts the Mhos on the board
+        int ans = 0;
+        for (int i = 1; i <= 10; i++) {
+            for (int j = 1; j <= 10; j++) {
+                if (board[i][j] == 'e') {
+                    ans++;
+                }
+            }
+        }
+        mhosLeft = ans;
+        return ans;
+    }
 
+    public void draw() { // TODO: implement the draw function in swing
+        // Draws the board in swing
     }
 
     public void print() {
+        // Prints the board on the console
         for (int i = 0; i < 12; i++) {
             for (int j = 0; j < 12; j++) {
                 if (board[i][j] != 'v') {
@@ -102,5 +128,31 @@ public class Controller {
 
         System.out.println("Enemies left " + mhosLeft);
 
+    }
+
+    public void gameLoop() {
+        // Loops the game until the player dies or wins
+        while (player.isAlive) {
+            countMhos(); // Count the Mhos for the draw/print function
+            if (swing) {
+                draw();  // Draw in swing
+            } else {
+                print(); // Print in console
+            }
+            turn(); // Let the player and Mhos move
+        }
+    }
+
+    public void gameLoop(int maxTurns) {
+        // Loops the game for a set amount of turns, until the player dies, or the player wins
+        while (player.isAlive) {
+            countMhos(); // Count the Mhos for the draw/print function
+            if (swing) {
+                draw(); // Draw in swing
+            } else {
+                print(); // Print in console
+            }
+            turn(); // Let the player and Mhos move
+        }
     }
 }

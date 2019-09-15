@@ -5,69 +5,74 @@ public class Player {
 
     char[][] move(char[][] board, char move) {
         int playerRow = -1;
-        int playerColumn = -1;
+        int playerCol = -1;
 
         for (int i = 0; i <= 10; i++) { // finding out where the player is
             for (int j = 0; j <= 10; j++) {
                 if (board[i][j] == 'c') {
-                    playerRow = j;
-                    playerColumn = i;
+                    playerRow = i;
+                    playerCol = j;
                 }
             }
         }
 
-        int newI = 1;
-        int newJ = 1;
+        if (playerCol == -1) {
+            isAlive = false;
+            return null;
+        }
+
+        int newCol = -1;
+        int newRow = -1;
 
         if (move == 'q') {
-            newI = playerColumn - 1;
-            newJ = playerRow - 1;
+            newCol = playerCol - 1;
+            newRow = playerRow - 1;
         }
         if (move == 'w') {
-            newI = playerColumn - 1;
-            newJ = playerRow;
+            newCol = playerCol;
+            newRow = playerRow - 1;
 
         }
         if (move == 'e') {
-            newI = playerColumn - 1;
-            newJ = playerRow + 1;
+            newCol = playerCol + 1;
+            newRow = playerRow - 1;
 
         }
         if (move == 'a') {
-            newI = playerColumn;
-            newJ = playerRow - 1;
+            newCol = playerCol - 1;
+            newRow = playerRow;
         }
         if (move == 's') {
-            newI = playerColumn;
-            newJ = playerRow;
+            newCol = playerCol;
+            newRow = playerRow;
         }
         if (move == 'd') {
-            newI = playerColumn;
-            newJ = playerRow + 1;
+            newCol = playerCol + 1;
+            newRow = playerRow;
         }
         if (move == 'z') {
-            newI = playerColumn + 1;
-            newJ = playerRow - 1;
+            newCol = playerCol - 1;
+            newRow = playerRow + 1;
         }
         if (move == 'x') {
-            newI = playerColumn-1;
-            newJ = playerRow;
+            newCol = playerCol;
+            newRow = playerRow + 1;
         }
         if (move == 'c') {
-            newI = playerColumn+1;
-            newJ = playerRow + 1;
+            newCol = playerCol + 1;
+            newRow = playerRow + 1;
         }
         if (move == 'j') {
-            newI = random(1, 10);
-            newJ = random(1, 10);
+            newCol = random(1, 10);
+            newRow = random(1, 10);
         }
 
-        if (board[newI][newJ] != 'v') {
+        if (board[newRow][newCol] != 'v' && board[newRow][newCol] != 'c') {
             isAlive = false;
-            board[playerColumn][playerRow] = 'v';
+            board[playerRow][playerCol] = 'v';
         } else {
-            board[playerColumn][playerRow] = 'v';
-            board[newI][newJ] = 'c';
+            board[playerRow][playerCol] = 'v';
+            board[newRow][newCol] = 'c';
         }
 
         return board;

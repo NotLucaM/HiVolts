@@ -3,6 +3,8 @@ package higame;
 public class Game {
 
     public static void main(String[] args) {
-        Controller controller = new Controller();
+        Controller controller = new Controller(false);
+
+        controller.gameLoop(10);
     }
 }
