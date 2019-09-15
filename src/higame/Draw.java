@@ -39,7 +39,6 @@ public class Draw{
 
     Work board() {
         return new Work(this.board);
-
     }
 }
 
@@ -72,7 +71,6 @@ class Work extends JPanel {
                 g.drawString("You can use the j key to jump to a random location \n", 800, 175);
                 g.drawString("This random location can be a Mho or a fence", 800, 200);
                 g.drawString("PRESS ANY KEY TO START", 800, 250);
-                s = State.inGame;
             case inGame:
                 int size = 25;
                 for (int i = 0; i < 12; i++) {
