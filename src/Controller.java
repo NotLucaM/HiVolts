@@ -14,9 +14,18 @@ public class Controller {
     Controller(boolean swing) {
         this.swing = swing;
 
+        regenerateGame();
+
         if (swing) {
             swingUI = new Draw(board, player, this);
         }
+    }
+
+    public void regenerateGame() {
+        player = new Player();
+        mhos = new Mhos();
+
+        board = new char[12][12];
 
         for (int i = 0; i < 12; i++) {
             board[i][0] = 'f';

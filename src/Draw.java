@@ -2,9 +2,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.util.HashSet;
+import java.util.Set;
 
-public class Draw{
+// Mho image https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/dd7b37bd-3cdc-4bbb-af59-ed24c7277cce/d5d7w7t-da45246d-b0fc-44a6-b22f-92647adc3a4b.gif
+
+
+public class Draw {
     char[][] board;
+    Controller controller;
 
     JFrame frame = new JFrame("HiGame");
 
@@ -13,6 +20,7 @@ public class Draw{
     Draw(char[][] board, Player player, Controller controller) {
         this.board = board;
         this.player = player;
+        this.controller = controller;
         setFrame();
 
         Work p = board();
@@ -27,7 +35,7 @@ public class Draw{
 
     void setFrame() {
         frame.setSize(1220, 1000);
-        frame.getContentPane().add(new Work(board));
+        frame.getContentPane().add(new Work(controller));
 
         //frame.setBackground(Color.LIGHT_GRAY);
 
@@ -36,13 +44,17 @@ public class Draw{
     }
 
     Work board() {
-        return new Work(this.board);
+        return new Work(this.controller);
     }
 }
 
 
 class Work extends JPanel {
     char[][] board;
+    Controller controller;
+
+    BufferedReader mho = null;
+
     enum State {
         start,
         inGame,
@@ -51,8 +63,9 @@ class Work extends JPanel {
 
     State s;
 
-    public Work(char[][] board) {
-        this.board = board;
+    public Work(Controller controller) {
+        this.board = controller.board;
+        this.controller = controller;
 
         s = State.start;
     }
@@ -89,7 +102,12 @@ class Work extends JPanel {
                         }
                     }
                 }
+
+                g.drawString("There are " + controller.mhosLeft + " mhos left", size, 13 * size + 20);
                 break;
+            case gameOver:
+                g.setFont(new Font("Wingdings", Font.PLAIN, 20));
+                g.drawString("Game over", 400, 400);
         }
     }
 }
@@ -99,10 +117,14 @@ class KeyChecker extends KeyAdapter {
     private final Controller controller;
     Work work;
 
+    Set<Character> characters = new HashSet<>();
+
     KeyChecker(Work work, Player player, Controller controller) {
         this.work = work;
         this.player = player;
         this.controller = controller;
+
+        characters.add('a');
     }
 
     @Override
@@ -112,12 +134,20 @@ class KeyChecker extends KeyAdapter {
         System.out.println(key);
         player.move(work.board, key);
         controller.turn();
-        work.s = Work.State.inGame;
+
+        if (work.s.equals(Work.State.start)) {
+            work.s = Work.State.inGame;
+        }
 
         if (player.isAlive) {
             work.repaint();
-        } else {
+        } else if (work.s.equals(Work.State.inGame)) {
             work.s = Work.State.gameOver;
+            work.repaint();
+        } else if (work.s.equals(Work.State.gameOver)) {
+            controller.regenerateGame();
+            work.s = Work.State.inGame;
+            work.repaint();
         }
     }
 }
