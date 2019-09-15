@@ -104,6 +104,7 @@ class Work extends JPanel {
                 }
 
                 g.drawString("There are " + controller.mhosLeft + " mhos left", size, 13 * size + 20);
+                g.drawString("You have had " + controller.moves + " moves", size, 13 * size + 45);
                 break;
             case gameOver:
                 g.setFont(new Font("Wingdings", Font.PLAIN, 20));
@@ -124,16 +125,29 @@ class KeyChecker extends KeyAdapter {
         this.player = player;
         this.controller = controller;
 
+        characters.add('q');
+        characters.add('w');
+        characters.add('e');
         characters.add('a');
+        characters.add('s');
+        characters.add('d');
+        characters.add('z');
+        characters.add('x');
+        characters.add('c');
+        characters.add('j');
     }
 
     @Override
     public void keyPressed(KeyEvent event) {
         char key = event.getKeyChar();
 
-        System.out.println(key);
-        player.move(work.board, key);
-        controller.turn();
+
+        if (characters.contains(key)) {
+            player.move(work.board, key);
+            if (key != 'j') {
+                controller.turn();
+            }
+        }
 
         if (work.s.equals(Work.State.start)) {
             work.s = Work.State.inGame;

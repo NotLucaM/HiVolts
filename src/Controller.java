@@ -22,9 +22,6 @@ public class Controller {
     }
 
     public void regenerateGame() {
-        player = new Player();
-        mhos = new Mhos();
-
         board = new char[12][12];
 
         for (int i = 0; i < 12; i++) {
@@ -81,6 +78,9 @@ public class Controller {
                 }
             }
         }
+
+        player = new Player();
+        mhos = new Mhos();
     }
 
     private int random(int start, int end) {
@@ -104,7 +104,7 @@ public class Controller {
             return;
         } // If the player is blind and walks into a wall on his own accord
 
-        board = mhos.move(board, mhosLeft); // Let the enemies move
+        board = mhos.move(board); // Let the enemies move
     }
 
     public int countMhos() {
