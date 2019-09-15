@@ -61,8 +61,8 @@ public class Player {
             newRow = playerRow + 1;
         }
         if (move == 'j') {
-            newCol = random(1, 10);
-            newRow = random(1, 10);
+            newCol = random(10,1);
+            newRow = random(10,1);
         }
 
         if (board[newRow][newCol] != 'v' && board[newRow][newCol] != 'c') {
