@@ -1,5 +1,3 @@
-package higame;
-
 public class Player {
     boolean isAlive = true;
 

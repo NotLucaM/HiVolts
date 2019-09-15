@@ -1,5 +1,3 @@
-package higame;
-
 public class Mhos {
     //c = player, f = fence, e = mho, v = vacant
     char[][] move(char[][] board, int enemiesLeft) {

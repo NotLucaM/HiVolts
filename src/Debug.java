@@ -1,4 +1,4 @@
-package higame;
+
 
 /* A class that outputs several facts about the board in console */
 
