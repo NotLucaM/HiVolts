@@ -46,7 +46,7 @@ public class Controller {
 
         // Mhos placement
         amountCreated = 0;
-        while (amountCreated < 12) {
+        while (amountCreated < 4) {
             int rand1 = random(1, 10);
             int rand2 = random(1, 10);
 
@@ -91,9 +91,7 @@ public class Controller {
 
     public void turn() {
         // Do one turn
-        if (swing) { // If the game is to be played in swing
-
-        } else { // If the game is to be played through console
+        if (!swing) { // If the game is to be played through console
             Scanner in = new Scanner(System.in);
             board = player.move(board, in.next().charAt(0));
         }
