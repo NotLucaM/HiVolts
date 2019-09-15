@@ -6,6 +6,7 @@ public class Controller {
     char[][] board = new char[12][12]; // c = player, f = fence, e = Mho, v = empty
     Player player = new Player();
     Mhos mhos = new Mhos();
+    Draw swingUI;
 
     boolean swing; // true = use swing to draw the board, false = output the board in console
 
@@ -14,6 +15,10 @@ public class Controller {
 
     Controller(boolean swing) {
         this.swing = swing;
+
+        if (swing) {
+            swingUI = new Draw(board, player, this);
+        }
 
         for (int i = 0; i < 12; i++) {
             board[i][0] = 'f';
@@ -109,10 +114,6 @@ public class Controller {
         return ans;
     }
 
-    public void draw() { // TODO: implement the draw function in swing
-        // Draws the board in swing
-    }
-
     public void print() {
         // Prints the board on the console
         for (int i = 0; i < 12; i++) {
@@ -134,12 +135,15 @@ public class Controller {
         // Loops the game until the player dies or wins
         while (player.isAlive) {
             countMhos(); // Count the Mhos for the draw/print function
-            if (swing) {
-                draw();  // Draw in swing
-            } else {
+            if (!swing) {
                 print(); // Print in console
+                turn(); // Let the player and Mhos move
             }
-            turn(); // Let the player and Mhos move
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -147,10 +151,9 @@ public class Controller {
         // Loops the game for a set amount of turns, until the player dies, or the player wins
         while (player.isAlive) {
             countMhos(); // Count the Mhos for the draw/print function
-            if (swing) {
-                draw(); // Draw in swing
-            } else {
-                print(); // Print in console
+            if (!swing) {
+                 // Print in console
+                print();
             }
             turn(); // Let the player and Mhos move
         }
