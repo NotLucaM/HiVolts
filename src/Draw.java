@@ -101,7 +101,7 @@ class Work extends JPanel {
                     }
                 }
 
-                g.drawString("There are " + controller.mhosLeft + " mhos left", size, 13 * size + 20);
+                g.drawString("There are " + controller.countMhos() + " mhos left", size, 13 * size + 20);
                 g.drawString("You have had " + controller.moves + " moves", size, 13 * size + 45);
                 break;
             case gameOver:
