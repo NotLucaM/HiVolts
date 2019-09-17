@@ -6,9 +6,6 @@ import java.io.BufferedReader;
 import java.util.HashSet;
 import java.util.Set;
 
-// Mho image https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/i/dd7b37bd-3cdc-4bbb-af59-ed24c7277cce/d5d7w7t-da45246d-b0fc-44a6-b22f-92647adc3a4b.gif
-
-
 public class Draw {
     char[][] board;
     Controller controller;
@@ -46,7 +43,6 @@ public class Draw {
     }
 }
 
-
 class Work extends JPanel {
     char[][] board;
     Controller controller;
@@ -56,7 +52,8 @@ class Work extends JPanel {
     enum State {
         start,
         inGame,
-        gameOver
+        win,
+        lose
     }
 
     State s;
@@ -101,12 +98,16 @@ class Work extends JPanel {
                     }
                 }
 
-                g.drawString("There are " + controller.mhosLeft + " mhos left", size, 13 * size + 20);
+                g.drawString("There are " + controller.countMhos() + " mhos left", size, 13 * size + 20);
                 g.drawString("You have had " + controller.moves + " moves", size, 13 * size + 45);
                 break;
-            case gameOver:
+            case win:
                 g.setFont(new Font("Wingdings", Font.PLAIN, 20));
-                g.drawString("Game over", 400, 400);
+                g.drawString("You win", 400, 400);
+                break;
+            case lose:
+                g.setFont(new Font("Wingdings", Font.PLAIN, 20));
+                g.drawString("Game over, better skills next time", 400, 400);
         }
     }
 }
@@ -154,9 +155,9 @@ class KeyChecker extends KeyAdapter {
         if (player.isAlive) {
             work.repaint();
         } else if (work.s.equals(Work.State.inGame)) {
-            work.s = Work.State.gameOver;
+            work.s = Work.State.win;
             work.repaint();
-        } else if (work.s.equals(Work.State.gameOver)) {
+        } else if (work.s.equals(Work.State.win)) {
             controller.regenerateGame();
             work.s = Work.State.inGame;
             work.repaint();
