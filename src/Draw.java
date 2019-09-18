@@ -182,5 +182,12 @@ class KeyChecker extends KeyAdapter {
             work.s = Work.State.inGame;
             work.repaint();
         }
+
+        if (controller.countMhos() == 0) {
+            work.s = Work.State.win;
+        }
+        if (!controller.player.isAlive) {
+            work.s = Work.State.lose;
+        }
     }
 }
