@@ -14,6 +14,11 @@ public class Player {
             }
         }
 
+        if (playerCol == -1) {
+            System.out.println("Player Not Found");
+            return board;
+        }
+
         board[playerRow][playerCol] = 'v';
 
         if (playerCol == -1) {
