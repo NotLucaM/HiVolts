@@ -14,8 +14,10 @@ public class Player {
             }
         }
 
+        isAlive = true;
+
         if (playerCol == -1) {
-            System.out.println("Player Not Found");
+            isAlive = false;
             return board;
         }
 
