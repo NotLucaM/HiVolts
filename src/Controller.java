@@ -25,6 +25,12 @@ public class Controller {
         board = new char[12][12];
 
         for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 12; j++) {
+                board[i][j] = '\u0000';
+            }
+        }
+
+        for (int i = 0; i < 12; i++) {
             board[i][0] = 'f';
             board[i][11] = 'f';
             board[0][i] = 'f';
