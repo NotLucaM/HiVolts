@@ -52,8 +52,8 @@ class Work extends JPanel {
     enum State {
         start,
         inGame,
-        win,
-        lose
+        lose,
+        win
     }
 
     State s;
@@ -101,13 +101,13 @@ class Work extends JPanel {
                 g.drawString("There are " + controller.countMhos() + " mhos left", size, 13 * size + 20);
                 g.drawString("You have had " + controller.moves + " moves", size, 13 * size + 45);
                 break;
-            case win:
-                g.setFont(new Font("Wingdings", Font.PLAIN, 20));
-                g.drawString("You win", 400, 400);
-                break;
             case lose:
                 g.setFont(new Font("Wingdings", Font.PLAIN, 20));
                 g.drawString("Game over, better skills next time", 400, 400);
+                break;
+            case win:
+                g.setFont(new Font("Wingdings", Font.PLAIN, 20));
+                g.drawString("You Win", 400, 400);
         }
     }
 }
@@ -155,9 +155,9 @@ class KeyChecker extends KeyAdapter {
         if (player.isAlive) {
             work.repaint();
         } else if (work.s.equals(Work.State.inGame)) {
-            work.s = Work.State.win;
+            work.s = Work.State.lose;
             work.repaint();
-        } else if (work.s.equals(Work.State.win)) {
+        } else if (work.s.equals(Work.State.lose)) {
             controller.regenerateGame();
             work.s = Work.State.inGame;
             work.repaint();
