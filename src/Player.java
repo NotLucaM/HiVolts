@@ -14,6 +14,8 @@ public class Player {
             }
         }
 
+        board[playerRow][playerCol] = 'v';
+
         if (playerCol == -1) {
             isAlive = false;
             return null;
@@ -64,7 +66,7 @@ public class Player {
             newCol = random(10,1);
             newRow = random(10,1);
         }
-
+        
         if (board[newRow][newCol] != 'v' && board[newRow][newCol] != 'c') {
             isAlive = false;
             board[playerRow][playerCol] = 'v';
@@ -73,9 +75,22 @@ public class Player {
             board[newRow][newCol] = 'c';
         }
 
+   //     System.out.println("test");
+        printboard(board);
+
         return board;
     }
-    
+
+    void printboard(char[][] board) {
+   //     System.out.println("from print board hello");
+        int boardlength = 12;
+        for (int i=0; i<boardlength; i++) {
+        //    for (int j=0; j<boardlength; j++) {
+            System.out.println(board[i]);
+          //  }
+        }
+    }
+
     int random(int end, int start) {
     	int diff = end - start + 1;
         return ((int) Math.floor(Math.random() * diff)) + start;
