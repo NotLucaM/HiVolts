@@ -160,7 +160,6 @@ class KeyChecker extends KeyAdapter {
     public void keyPressed(KeyEvent event) {
         char key = event.getKeyChar();
 
-
         if (characters.contains(key)) {
             player.move(work.board, key);
             if (key != 'j') {
