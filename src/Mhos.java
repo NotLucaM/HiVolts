@@ -74,7 +74,6 @@ public class Mhos {
                             newI = i;
                             newJ = j-1;
                         }
-
                     }
 
                     if (board[newI][newJ] == 'v') {

@@ -46,7 +46,7 @@ public class Controller {
 
         // Mhos placement
         amountCreated = 0;
-        while (amountCreated < 4) {
+        while (amountCreated < 12) {
             int rand1 = random(1, 10);
             int rand2 = random(1, 10);
 
