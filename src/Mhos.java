@@ -77,7 +77,7 @@ public class Mhos {
 
                     }
 
-                    if (board[newI][newJ] != 'f') {
+                    if (board[newI][newJ] == 'v') {
                         board[newI][newJ] = 'e';
                     }
 
