@@ -2,6 +2,9 @@ public class Player {
     boolean isAlive = true;
 
     char[][] move(char[][] board, char move) {
+        printboard(board);
+        System.out.println("\n");
+        System.out.println(move);
         int playerRow = -1;
         int playerCol = -1;
 
@@ -83,7 +86,7 @@ public class Player {
         }
 
    //     System.out.println("test");
-        printboard(board);
+        
 
         return board;
     }
@@ -96,6 +99,7 @@ public class Player {
             System.out.println(board[i]);
           //  }
         }
+        
     }
 
     int random(int end, int start) {
