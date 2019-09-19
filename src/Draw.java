@@ -65,49 +65,69 @@ class Work extends JPanel {
         s = State.start;
     }
 
+    public void paintStart(Graphics g) {
+        g.drawString("Welcome", 800, 50);
+        g.drawString("You can use the qweasdzxc keys to move in a square pattern", 800, 75);
+        g.drawString("The Mhos will try to follow you", 800, 100);
+        g.drawString("You can not attack them but if they walk into a wall they will die", 800, 125);
+        g.drawString("You too will die if you hit a wall or Mho", 800, 150);
+        g.drawString("You can use the j key to jump to a random location \n", 800, 175);
+        g.drawString("This random location can be a Mho or a fence", 800, 200);
+        g.drawString("PRESS ANY KEY TO START", 800, 250);
+
+        paintGame(g);
+    }
+
+    public void paintGame(Graphics g) {
+        int size = 25;
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 12; j++) {
+                switch (board[i][j]) {
+                    case 'f':
+                        g.setColor(Color.BLACK);
+                        g.drawRect(size + j * size, size + i * size, size, size);
+                        break;
+                    case 'e':
+                        g.setColor(Color.RED);
+                        g.fillRect(size + j * size + 2, size + i * size + 2, size - 5, size - 5);
+                        break;
+                    case 'c':
+                        g.setColor(Color.GREEN);
+                        g.fillRect(size + j * size + 3, size + i * size + 3, size - 8, size - 8);
+                        break;
+                }
+            }
+        }
+
+        g.drawString("There are " + controller.countMhos() + " mhos left", size, 13 * size + 20);
+        g.drawString("You have had " + controller.moves + " moves", size, 13 * size + 45);
+    }
+
+    public void paintLose(Graphics g) {
+        g.setFont(new Font("Wingdings", Font.PLAIN, 20));
+        g.drawString("Game over, better skills next time", 400, 400);
+    }
+
+    public void paintWin(Graphics g) {
+        g.setFont(new Font("Wingdings", Font.PLAIN, 20));
+        g.drawString("You Win", 400, 400);
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         switch (s) {
             case start:
-                g.drawString("Welcome", 800, 50);
-                g.drawString("You can use the qweasdzxc keys to move in a square pattern", 800, 75);
-                g.drawString("The Mhos will try to follow you", 800, 100);
-                g.drawString("You can not attack them but if they walk into a wall they will die", 800, 125);
-                g.drawString("You too will die if you hit a wall or Mho", 800, 150);
-                g.drawString("You can use the j key to jump to a random location \n", 800, 175);
-                g.drawString("This random location can be a Mho or a fence", 800, 200);
-                g.drawString("PRESS ANY KEY TO START", 800, 250);
+                paintStart(g);
+                break;
             case inGame:
-                int size = 25;
-                for (int i = 0; i < 12; i++) {
-                    for (int j = 0; j < 12; j++) {
-                        switch (board[i][j]) {
-                            case 'f':
-                                g.setColor(Color.BLACK);
-                                g.drawRect(size + j * size, size + i * size, size, size);
-                                break;
-                            case 'e':
-                                g.setColor(Color.RED);
-                                g.fillRect(size + j * size + 2, size + i * size + 2, size - 5, size - 5);
-                                break;
-                            case 'c':
-                                g.setColor(Color.GREEN);
-                                g.fillRect(size + j * size + 3, size + i * size + 3, size - 8, size - 8);
-                                break;
-                        }
-                    }
-                }
-
-                g.drawString("There are " + controller.countMhos() + " mhos left", size, 13 * size + 20);
-                g.drawString("You have had " + controller.moves + " moves", size, 13 * size + 45);
+                paintGame(g);
                 break;
             case lose:
-                g.setFont(new Font("Wingdings", Font.PLAIN, 20));
-                g.drawString("Game over, better skills next time", 400, 400);
+                paintLose(g);
                 break;
             case win:
-                g.setFont(new Font("Wingdings", Font.PLAIN, 20));
-                g.drawString("You Win", 400, 400);
+                paintWin(g);
+                break;
         }
     }
 }
@@ -161,6 +181,13 @@ class KeyChecker extends KeyAdapter {
             controller.regenerateGame();
             work.s = Work.State.inGame;
             work.repaint();
+        }
+
+        if (controller.countMhos() == 0) {
+            work.s = Work.State.win;
+        }
+        if (!controller.player.isAlive) {
+            work.s = Work.State.lose;
         }
     }
 }

@@ -76,14 +76,28 @@ public class Mhos {
                         }
                     }
 
+<<<<<<< HEAD
                     if (board[newI][newJ] == 'v') {
                         board[newI][newJ] = 'e';
+=======
+                    if (board[newI][newJ] != 'f') {
+                        board[newI][newJ] = 't';
+>>>>>>> 13e67d832623bbed6752d4e056453fa8676a3560
                     }
 
                     board[i][j] = 'v';
                 }
             }
         }
+
+        for (int i = 0; i <= 10; i++) { // finding out where the player is
+            for (int j = 0; j <= 10; j++) {
+                if (board[i][j] == 't') {
+                    board[i][j] = 'e';
+                }
+            }
+        }
+
         return board;
     }
 }

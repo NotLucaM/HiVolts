@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Controller {
-    char[][] board = new char[12][12]; // c = player, f = fence, e = Mho, v = empty
+    char[][] board; // c = player, f = fence, e = Mho, v = empty
     Player player = new Player();
     Mhos mhos = new Mhos();
     Draw swingUI;
