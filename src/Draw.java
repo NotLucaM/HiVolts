@@ -167,7 +167,7 @@ class KeyChecker extends KeyAdapter {
             }
         }
 
-        if (player.isAlive) {
+        if (player.isAlive && !work.s.equals(Work.State.win)) {
             work.repaint();
         } else if (work.s.equals(Work.State.inGame)) {
             work.s = Work.State.lose;
