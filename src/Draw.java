@@ -171,6 +171,13 @@ class KeyChecker extends KeyAdapter {
             work.s = Work.State.inGame;
         }
 
+        if (controller.countMhos() == 0) {
+            work.s = Work.State.win;
+        }
+        if (!controller.player.isAlive) {
+            work.s = Work.State.lose;
+        }
+
         if (player.isAlive) {
             work.repaint();
         } else if (work.s.equals(Work.State.inGame)) {
@@ -180,13 +187,10 @@ class KeyChecker extends KeyAdapter {
             controller.regenerateGame();
             work.s = Work.State.inGame;
             work.repaint();
-        }
-
-        if (controller.countMhos() == 0) {
-            work.s = Work.State.win;
-        }
-        if (!controller.player.isAlive) {
-            work.s = Work.State.lose;
+        } else if (work.s.equals(Work.State.win)) {
+            controller.regenerateGame();
+            work.s = Work.State.inGame;
+            work.repaint();
         }
     }
 }
