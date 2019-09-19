@@ -167,6 +167,24 @@ class KeyChecker extends KeyAdapter {
             }
         }
 
+        if (player.isAlive) {
+            work.repaint();
+        } else if (work.s.equals(Work.State.inGame)) {
+            work.s = Work.State.lose;
+            work.repaint();
+            return;
+        } else if (work.s.equals(Work.State.lose)) {
+            controller.regenerateGame();
+            work.s = Work.State.inGame;
+            work.repaint();
+            return;
+        } else if (work.s.equals(Work.State.win)) {
+            controller.regenerateGame();
+            work.s = Work.State.inGame;
+            work.repaint();
+            return;
+        }
+
         if (work.s.equals(Work.State.start)) {
             work.s = Work.State.inGame;
         }
@@ -176,21 +194,6 @@ class KeyChecker extends KeyAdapter {
         }
         if (!controller.player.isAlive) {
             work.s = Work.State.lose;
-        }
-
-        if (player.isAlive) {
-            work.repaint();
-        } else if (work.s.equals(Work.State.inGame)) {
-            work.s = Work.State.lose;
-            work.repaint();
-        } else if (work.s.equals(Work.State.lose)) {
-            controller.regenerateGame();
-            work.s = Work.State.inGame;
-            work.repaint();
-        } else if (work.s.equals(Work.State.win)) {
-            controller.regenerateGame();
-            work.s = Work.State.inGame;
-            work.repaint();
         }
     }
 }
