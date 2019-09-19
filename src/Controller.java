@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class Controller {
-    char[][] board; // c = player, f = fence, e = Mho, v = empty
+    char[][] board = new char[12][12]; // c = player, f = fence, e = Mho, v = empty
     Player player = new Player();
     Mhos mhos = new Mhos();
     Draw swingUI;
@@ -22,7 +22,11 @@ public class Controller {
     }
 
     public void regenerateGame() {
-        board = new char[12][12];
+        for (int i = 0; i < 12; i++) {
+            for (int j = 0; j < 12; j++) {
+                board[i][j] = '\u0000';
+            }
+        }
 
         for (int i = 0; i < 12; i++) {
             board[i][0] = 'f';
