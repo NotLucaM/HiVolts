@@ -22,6 +22,8 @@ public class Controller {
     }
 
     public void regenerateGame() {
+        moves = 0;
+
         for (int i = 0; i < 12; i++) {
             for (int j = 0; j < 12; j++) {
                 board[i][j] = '\u0000';

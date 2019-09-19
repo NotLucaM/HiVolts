@@ -104,12 +104,12 @@ class Work extends JPanel {
     }
 
     public void paintLose(Graphics g) {
-        g.setFont(new Font("Wingdings", Font.PLAIN, 20));
+        g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         g.drawString("Game over, better skills next time", 400, 400);
     }
 
     public void paintWin(Graphics g) {
-        g.setFont(new Font("Wingdings", Font.PLAIN, 20));
+        g.setFont(new Font("Comic Sans", Font.PLAIN, 20));
         g.drawString("You Win", 400, 400);
     }
 
@@ -188,7 +188,7 @@ class KeyChecker extends KeyAdapter {
         if (work.s.equals(Work.State.start)) {
             work.s = Work.State.inGame;
         }
-        
+
         if (controller.countMhos() == 0) {
             work.s = Work.State.win;
         }
