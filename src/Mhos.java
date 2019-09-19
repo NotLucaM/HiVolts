@@ -76,13 +76,13 @@ public class Mhos {
                         }
                     }
 
-<<<<<<< HEAD
+
                     if (board[newI][newJ] == 'v') {
                         board[newI][newJ] = 'e';
-=======
+
                     if (board[newI][newJ] != 'f') {
                         board[newI][newJ] = 't';
->>>>>>> 13e67d832623bbed6752d4e056453fa8676a3560
+
                     }
 
                     board[i][j] = 'v';
@@ -100,4 +100,5 @@ public class Mhos {
 
         return board;
     }
+}
 }
