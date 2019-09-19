@@ -188,7 +188,7 @@ class KeyChecker extends KeyAdapter {
         if (work.s.equals(Work.State.start)) {
             work.s = Work.State.inGame;
         }
-
+        
         if (controller.countMhos() == 0) {
             work.s = Work.State.win;
         }
